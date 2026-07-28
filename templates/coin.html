@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}
+Search Results
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-5">
+
+    <h1 class="fw-bold">
+        🔍 Search Results
+    </h1>
+
+    <p class="text-secondary">
+        Showing results for
+        <span class="text-info fw-bold">
+            "{{ query }}"
+        </span>
+    </p>
+
+</div>
+
+{% include 'components/search_bar.html' %}
+
+{% if result.coins %}
+
+<div class="row g-4">
+
+{% for coin in result.coins %}
+
+<div class="col-lg-6">
+
+    <div class="card p-4 h-100">
+
+        <div class="d-flex align-items-center">
+
+            <img src="{{ coin.large }}" width="60">
+
+            <div class="ms-3">
+
+                <h4 class="mb-1">
+
+                    {{ coin.name }}
+
+                </h4>
+
+                <small class="text-secondary">
+
+                    {{ coin.symbol.upper() }}
+
+                </small>
+
+            </div>
+
+            <div class="ms-auto">
+
+                <span class="badge bg-primary">
+
+                    Rank #{{ coin.market_cap_rank }}
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <a
+            href="/coin/{{ coin.id }}"
+            class="btn btn-outline-info w-100">
+
+            View Details →
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="alert alert-danger">
+
+    No cryptocurrency found.
+
+</div>
+
+{% endif %}
+
+{% endblock %}

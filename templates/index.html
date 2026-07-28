@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+Crypto Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="text-center mb-5">
+
+    <h1 class="display-3 fw-bold">
+
+        ⚡ CryptoPulse
+
+    </h1>
+
+    <p class="lead">
+
+        Real-Time Cryptocurrency Analytics
+
+    </p>
+
+</div>
+
+{% include 'components/search_bar.html' %}
+
+<div class="row g-4">
+
+{% for coin in coins %}
+
+    {% include 'components/coin_card.html' %}
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
+

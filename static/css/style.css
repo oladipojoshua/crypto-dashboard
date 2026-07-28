@@ -1,0 +1,90 @@
+body{
+    transition:0.3s;
+}
+
+.navbar-brand{
+
+    letter-spacing:1px;
+
+    font-weight:700;
+
+    color:#58a6ff !important;
+
+}
+
+.navbar-brand:hover{
+
+    color:#79c0ff !important;
+
+}
+
+.card{
+    border:none;
+    border-radius:15px;
+    transition:0.3s;
+    cursor:pointer;
+}
+
+/* LIGHT */
+
+body.light{
+    background:#f4f7fb;
+    color:#111;
+}
+
+body.light .card{
+    background:white;
+}
+
+.card:hover{
+    transform: translateY(-8px) scale(1.02);
+}
+
+
+/* DARK */
+
+body.dark{
+    background:#121212;
+    color:white;
+}
+
+body.dark .card{
+    background:#1e1e1e;
+    color:white;
+}
+
+body.dark .navbar{
+    background:#000 !important;
+}
+
+
+.card img{
+    border-radius:50%;
+    
+}
+
+.btn-outline-info{
+
+    border-radius:12px;
+
+}
+
+.badge{
+
+    font-size:.9rem;
+
+}
+
+.chart-container{
+    position: relative;
+    height: 250px;
+    width: 100%;
+}
+
+.coin-logo{
+    width:120px;
+    height:120px;
+    object-fit:contain;
+    margin:0 auto;
+    display:block;
+}

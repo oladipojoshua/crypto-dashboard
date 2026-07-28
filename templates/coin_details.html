@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ coin.name }}
+{% endblock %}
+
+{% block content %}
+
+<a href="/" class="btn btn-secondary mb-4">
+    ← Home
+</a>
+
+<div class="card shadow p-4">
+
+    <div class="text-center">
+
+        <img src="{{ coin.image.large }}" width="100">
+
+        <h1 class="mt-3">{{ coin.name }}</h1>
+
+        <h3>{{ coin.symbol.upper() }}</h3>
+
+    </div>
+
+    <hr>
+
+    <div class="row text-center">
+
+        <div class="col-md-3">
+            <h5>💰 Price</h5>
+            <h3>${{ "{:,.2f}".format(coin.market_data.current_price.usd) }}</h3>
+        </div>
+
+        <div class="col-md-3">
+            <h5>📈 24H</h5>
+            <h3>{{ "%.2f"|format(coin.market_data.price_change_percentage_24h) }}%</h3>
+        </div>
+
+        <div class="col-md-3">
+            <h5>🏆 Rank</h5>
+            <h3>#{{ coin.market_cap_rank }}</h3>
+        </div>
+
+        <div class="col-md-3">
+            <h5>💵 Market Cap</h5>
+            <h3>${{ "{:,.0f}".format(coin.market_data.market_cap.usd) }}</h3>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card p-4 mt-5">
+
+    <h3 class="mb-4">📈 Price History</h3>
+
+    <div class="mb-3">
+        <button class="btn btn-primary chart-btn" data-days="7">7D</button>
+        <button class="btn btn-outline-primary chart-btn" data-days="30">30D</button>
+        <button class="btn btn-outline-primary chart-btn" data-days="90">90D</button>
+        <button class="btn btn-outline-primary chart-btn" data-days="365">1Y</button>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="priceChart"></canvas>
+    </div>
+
+</div>
+
+<script>
+
+let chart;
+
+const coinId = "{{ coin.id }}";
+
+async function loadChart(days){
+
+    const response = await fetch(`/api/chart/${coinId}/${days}`);
+
+    const data = await response.json();
+
+    if(chart){
+        chart.destroy();
+    }
+
+    chart = new Chart(
+        document.getElementById("priceChart"),
+        {
+            type:"line",
+
+            data:{
+                labels:data.labels,
+                datasets:[{
+                    label:"Price (USD)",
+                    data:data.prices,
+                    borderColor:"#0d6efd",
+                    backgroundColor:"rgba(13,110,253,.15)",
+                    fill:true,
+                    tension:.4
+                }]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                interaction: {
+                    intersect: false,
+                    mode: "index"
+                }
+            }
+
+        }
+    );
+}
+
+loadChart(7);
+
+document.querySelectorAll(".chart-btn").forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+        document.querySelectorAll(".chart-btn").forEach(btn=>{
+            btn.classList.remove("btn-primary");
+            btn.classList.add("btn-outline-primary");
+        });
+
+        button.classList.remove("btn-outline-primary");
+        button.classList.add("btn-primary");
+
+        loadChart(button.dataset.days);
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

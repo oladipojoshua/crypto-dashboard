@@ -1,0 +1,29 @@
+<div class="col-lg-3 col-md-6">
+
+    <a href="/coin/{{ coin.id }}" class="text-decoration-none text-reset d-block">
+
+        <div class="card p-4 h-100 text-center">
+
+            <img src="{{ coin.image }}" class="coin-logo">
+
+            <hr>
+
+            <h2>
+                ${{ "{:,.2f}".format(coin.current_price) }}
+            </h2>
+
+            {% if coin.price_change_percentage_24h >= 0 %}
+                <span class="badge bg-success">
+                    ▲ {{ "%.2f"|format(coin.price_change_percentage_24h) }}%
+                </span>
+            {% else %}
+                <span class="badge bg-danger">
+                    ▼ {{ "%.2f"|format(coin.price_change_percentage_24h) }}%
+                </span>
+            {% endif %}
+
+        </div>
+
+    </a>
+
+</div>
