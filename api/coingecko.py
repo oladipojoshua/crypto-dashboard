@@ -32,6 +32,10 @@ def get_coin_details(coin_id):
 
     response = requests.get(url, timeout=10)
 
+    print("DETAIL STATUS:", response.status_code)
+    print("DETAIL URL:", url)
+    print("DETAIL RESPONSE:", response.text[:500])
+
     if response.status_code == 200:
         return response.json()
 
