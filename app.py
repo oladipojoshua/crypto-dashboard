@@ -8,7 +8,7 @@ app = Flask(__name__)
 def home():
 
     coins = get_market_data()
-    global_data = get_global_data()
+    global_data = get_global_data() or {}
 
     return render_template(
         "index.html",
