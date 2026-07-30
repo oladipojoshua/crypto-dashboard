@@ -173,7 +173,7 @@ CryptoPulse uses the **CoinGecko API** to retrieve:
 
 Data Analyst • Python Developer • Blockchain Enthusiast
 
-GitHub: https://github.com/joshuaoladipio
+GitHub: https://github.com/oladipojoshua
 
 LinkedIn: https://www.linkedin.com/in/joshua-eniola-oladipo-a186b0320/
 
