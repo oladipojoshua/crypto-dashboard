@@ -1,0 +1,51 @@
+<div class="row g-4 mb-5">
+
+    <div class="col-md-3">
+
+        <div class="card p-4 text-center">
+
+            <h5>🪙 Coins</h5>
+
+            <h2>{{ "{:,}".format(global_data.active_cryptocurrencies) }}</h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card p-4 text-center">
+
+            <h5>💰 Market Cap</h5>
+
+            <h2>${{ "{:,.1f}".format(global_data.total_market_cap.usd/1000000000000) }}T</h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card p-4 text-center">
+
+            <h5>📊 24H Volume</h5>
+
+            <h2>${{ "{:,.1f}".format(global_data.total_volume.usd/1000000000) }}B</h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card p-4 text-center">
+
+            <h5>📈 BTC Dominance</h5>
+
+            <h2>{{ "%.1f"|format(global_data.market_cap_percentage.btc) }}%</h2>
+
+        </div>
+
+    </div>
+
+</div>

@@ -46,3 +46,13 @@ def get_coin_chart(coin_id, days=7):
         return response.json()
 
     return None
+
+def get_global_data():
+    url = f"{BASE_URL}/global"
+
+    response = requests.get(url, timeout=10)
+
+    if response.status_code == 200:
+        return response.json()["data"]
+
+    return None

@@ -88,3 +88,23 @@ body.dark .navbar{
     margin:0 auto;
     display:block;
 }
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 0 20px rgba(13,110,253,.35);
+
+}
+
+body.light .list-group-item{
+    background: #ffffff !important;
+    color: #212529 !important;
+    border-color: #dee2e6;
+}
+
+body.dark .list-group-item{
+    background: transparent !important;
+    color: #ffffff !important;
+    border-color: #444;
+}

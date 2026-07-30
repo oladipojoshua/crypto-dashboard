@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from api.coingecko import get_market_data, search_coin, get_coin_details, get_coin_chart
+from api.coingecko import get_market_data, search_coin, get_coin_details, get_coin_chart, get_global_data
 
 app = Flask(__name__)
 
@@ -8,12 +8,17 @@ app = Flask(__name__)
 def home():
 
     coins = get_market_data()
+    global_data = get_global_data()
 
     return render_template(
         "index.html",
-        coins=coins
+        coins=coins,
+        global_data=global_data
     )
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 @app.route("/search")
 def search():
@@ -63,10 +68,10 @@ def chart_api(coin_id, days):
         "prices": prices
     })
 
-    return jsonify({
-        "labels": labels,
-        "prices": prices
-    })
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template("404.html"), 404
 
 if __name__ == "__main__":
     app.run(debug=True)
+

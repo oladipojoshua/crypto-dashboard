@@ -157,6 +157,7 @@ libarchive-c @ file:///croot/python-libarchive-c_1726069797193/work
 libmambapy @ file:///C:/miniconda3/conda-bld/mamba-split_1763111608356/work/libmambapy
 lief @ file:///C:/miniconda3/conda-bld/lief_1762942044025/work/api/python
 linkify-it-py @ file:///C:/miniconda3/conda-bld/linkify-it-py_1758717669406/work
+livereload==2.7.1
 llvmlite @ file:///C:/miniconda3/conda-bld/llvmlite_1760469323312/work
 lmdb @ file:///C:/miniconda3/conda-bld/python-lmdb_1764243825905/work
 locket @ file:///C:/Users/dev-admin/perseverance-python-buildout/croot/locket_1729042822914/work
