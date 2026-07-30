@@ -1,14 +1,28 @@
 from flask import Flask, render_template, request, jsonify
+from flask_caching import Cache
 from api.coingecko import get_market_data, search_coin, get_coin_details, get_coin_chart, get_global_data
 
 app = Flask(__name__)
 
+cache = Cache(app, config={
+    "CACHE_TYPE": "SimpleCache",
+    "CACHE_DEFAULT_TIMEOUT": 300  # 5 minutes
+})
 
 @app.route("/")
 def home():
 
-    coins = get_market_data()
-    global_data = get_global_data() or {}
+    coins = cache.get("market_data")
+
+    if coins is None:
+        coins = get_market_data()
+        cache.set("market_data", coins)
+
+    global_data = cache.get("global_data")
+
+    if global_data is None:
+        global_data = get_global_data() or {}
+        cache.set("global_data", global_data)
 
     return render_template(
         "index.html",
@@ -23,9 +37,15 @@ def about():
 @app.route("/search")
 def search():
 
-    query = request.args.get("query")
+    query = request.args.get("query", "").strip()
 
-    result = search_coin(query)
+    cache_key = f"search_{query.lower()}"
+
+    result = cache.get(cache_key)
+
+    if result is None:
+        result = search_coin(query)
+        cache.set(cache_key, result)
 
     return render_template(
         "coin.html",
@@ -36,20 +56,34 @@ def search():
 @app.route("/coin/<coin_id>")
 def coin(coin_id):
 
-    coin = get_coin_details(coin_id)
+    coin = cache.get(f"coin_{coin_id}")
 
-    if not coin:
-        return "Coin not found", 404
+    if coin is None:
+        coin = get_coin_details(coin_id)
+
+        if coin is not None:
+            cache.set(f"coin_{coin_id}", coin)
+
+        if not coin:
+            return "Coin not found", 404
 
     return render_template(
-        "coin_details.html",
+        "coin_details.html",    
         coin=coin
     )
 
 @app.route("/api/chart/<coin_id>/<int:days>")
 def chart_api(coin_id, days):
 
-    chart = get_coin_chart(coin_id, days)
+    cache_key = f"chart_{coin_id}_{days}"
+
+    chart = cache.get(cache_key)
+
+    if chart is None:
+        chart = get_coin_chart(coin_id, days)
+
+        if chart is not None:
+            cache.set(cache_key, chart)
 
     if not chart:
         return jsonify([])
