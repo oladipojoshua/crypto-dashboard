@@ -19,6 +19,9 @@ def search_coin(query):
 
     response = requests.get(url, timeout=10)
 
+    print("SEARCH STATUS:", response.status_code)
+    print("SEARCH RESPONSE:", response.text[:500])
+
     if response.status_code == 200:
         return response.json()
 
@@ -52,7 +55,10 @@ def get_global_data():
 
     response = requests.get(url, timeout=10)
 
+    print("GLOBAL STATUS:", response.status_code)
+    print("GLOBAL RESPONSE:", response.text[:500])
+
     if response.status_code == 200:
         return response.json()["data"]
 
-    return None
+    return {}
