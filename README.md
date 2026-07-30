@@ -95,7 +95,7 @@ CryptoPulse/
 Clone the repository
 
 ```bash
-git clone https://github.com/oladipojoshua/crypto-Pulse.git
+git clone https://github.com/oladipojoshua/CryptoPulse.git
 ```
 
 Navigate into the project
